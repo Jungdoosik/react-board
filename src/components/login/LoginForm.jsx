@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 const styles = {
   container: {
     maxWidth: 400,
@@ -19,10 +21,22 @@ const styles = {
     border: "none",
     cursor: "pointer",
   },
+  button2: {
+    width: "100%",
+    padding: 10,
+    backgroundColor: "#1976d2",
+    color: "#fff",
+    fontWeight: "bold",
+    border: "none",
+    cursor: "pointer",
+    marginTop: 5,
+  },
   error: { color: "red", marginBottom: 10 },
 };
 
 function LoginForm() {
+  const navigate = useNavigate(); // 반드시 컴포넌트 함수 내에서 사용해야됨
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -59,6 +73,10 @@ function LoginForm() {
       });
   };
 
+  const signup = (e) => {
+    navigate("/signup");
+  };
+
   return (
     <div style={styles.container}>
       <h2>로그인</h2>
@@ -82,6 +100,9 @@ function LoginForm() {
           로그인
         </button>
       </form>
+      <button type="button" style={styles.button2} onClick={signup}>
+        회원가입
+      </button>
     </div>
   );
 }
