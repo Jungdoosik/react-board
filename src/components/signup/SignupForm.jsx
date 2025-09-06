@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useReducer, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const styles = {
@@ -11,7 +11,7 @@ const styles = {
     boxShadow: "0 0 10px rgba(0,0,0,0.1)",
     fontFamily: "Arial, sans-serif",
   },
-  form: { display: "flex", flexDirection: "column" },
+  form: { display: "flex", flexDirection: "column", width: 400 },
   input: { padding: 10, marginBottom: 15, fontSize: 16 },
   button: {
     padding: 10,
@@ -38,13 +38,25 @@ function Signup() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [error, setError] = useState("");
+
+  const inputUsername = useRef(null);
+  const inputpassword = useRef(null);
 
   const handleSignup = (e) => {
     e.preventDefault();
 
-    if (!username || !password) {
-      setError("아이디와 비밀번호를 모두 입력하세요.");
+    if (!username) {
+      setError("아이디를 입력하세요.");
+      inputUsername.current.focus();
+      return;
+    }
+
+    if (!password) {
+      setError("비밀번호를 입력하세요.");
+      inputpassword.current.focus();
       return;
     }
 
@@ -65,7 +77,6 @@ function Signup() {
         console.log("서버 응답:", data);
         alert("회원가입이 완료되었습니다!");
         navigate("/login"); // 가입 후 로그인 페이지로 이동
-        // 성공하면 메인 페이지로 이동 등
       })
       .catch((error) => {
         setError(error.message);
@@ -80,6 +91,7 @@ function Signup() {
           type="text"
           placeholder="아이디"
           value={username}
+          ref={inputUsername}
           onChange={(e) => setUsername(e.target.value)}
           style={styles.input}
         />
@@ -87,7 +99,22 @@ function Signup() {
           type="password"
           placeholder="비밀번호"
           value={password}
+          ref={inputpassword}
           onChange={(e) => setPassword(e.target.value)}
+          style={styles.input}
+        />
+        <input
+          type="email"
+          placeholder="이메일"
+          value={password}
+          onChange={(e) => setEmail(e.target.value)}
+          style={styles.input}
+        />
+        <input
+          type="phone"
+          placeholder="휴대폰번호"
+          value={password}
+          onChange={(e) => setPhone(e.target.value)}
           style={styles.input}
         />
         {error && <div style={styles.error}>{error}</div>}
