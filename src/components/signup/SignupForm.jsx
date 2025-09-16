@@ -1,6 +1,6 @@
 import React, { useReducer, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import zxcvbn from "zxcvbn";
+import { passwordValidator } from "../validators/passwordValidator";
 
 const styles = {
   container: {
@@ -99,6 +99,8 @@ function Signup() {
 
   const passwordReg = (e) => {
     const pwd = e.target.value;
+    const err = passwordValidator(pwd);
+    console.log(err);
     setPassword(pwd);
   };
 
