@@ -38,14 +38,10 @@ const styles = {
 function Signup() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
-  // const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [error, setError] = useState("");
-
-  const [password, setPassword] = useState("");
-  const [score, setScore] = useState(0);
-  // const [feedback, setFeedback] = useState({ warning: "", suggestions: [] });
 
   const inputUsername = useRef(null);
   const inputPassword = useRef(null);
@@ -104,43 +100,6 @@ function Signup() {
   const passwordReg = (e) => {
     const pwd = e.target.value;
     setPassword(pwd);
-
-    const result = zxcvbn(pwd);
-    setScore(result.score);
-    // setFeedback(result.feedback);
-  };
-
-  const getStrengthLabel = () => {
-    switch (score) {
-      case 0:
-        return "약함";
-      case 1:
-        return "조금 약함";
-      case 2:
-        return "보통";
-      case 3:
-        return "강함";
-      case 4:
-        return "매우 강함";
-      default:
-        return "";
-    }
-  };
-
-  const getStrengthColor = () => {
-    switch (score) {
-      case 0:
-      case 1:
-        return "red";
-      case 2:
-        return "orange";
-      case 3:
-        return "blue";
-      case 4:
-        return "green";
-      default:
-        return "gray";
-    }
   };
 
   return (
@@ -164,36 +123,6 @@ function Signup() {
           onChange={passwordReg}
           style={styles.input}
         />
-        <div
-          style={{
-            height: "10px",
-            width: "100%",
-            backgroundColor: "#eee",
-            borderRadius: "5px",
-            marginBottom: "5px",
-          }}
-        >
-          <div
-            style={{
-              height: "100%",
-              width: `${(score / 4) * 100}%`,
-              backgroundColor: getStrengthColor(),
-              borderRadius: "5px",
-              transition: "width 0.3s",
-            }}
-          />
-        </div>
-        <div>강도: {getStrengthLabel()}</div>
-        {/* {feedback.warning && ( 
-          <div style={{ color: "red" }}>⚠ {feedback.warning}</div>
-        )}
-        {feedback.suggestions.length > 0 && (
-          <ul style={{ color: "gray", paddingLeft: "20px" }}>
-            {feedback.suggestions.map((s, i) => (
-              <li key={i}>{s}</li>
-            ))}
-          </ul>
-        )} */}
         <input
           type="text"
           placeholder="이메일"
