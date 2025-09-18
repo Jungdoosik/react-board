@@ -7,6 +7,5 @@ export function passwordValidator(pwd) {
     return errMsg;
   }
 
-  console.log(123);
   return errMsg;
 }
