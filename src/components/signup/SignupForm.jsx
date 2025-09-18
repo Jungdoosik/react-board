@@ -42,6 +42,7 @@ function Signup() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [error, setError] = useState("");
+  const [pwdErrMsg, setPwdErrMsg] = useState("");
 
   const inputUsername = useRef(null);
   const inputPassword = useRef(null);
@@ -100,7 +101,7 @@ function Signup() {
   const passwordReg = (e) => {
     const pwd = e.target.value;
     const err = passwordValidator(pwd);
-    console.log(err);
+    setPwdErrMsg(err);
     setPassword(pwd);
   };
 
@@ -125,6 +126,7 @@ function Signup() {
           onChange={passwordReg}
           style={styles.input}
         />
+        <p>{pwdErrMsg}</p>
         <input
           type="text"
           placeholder="이메일"
